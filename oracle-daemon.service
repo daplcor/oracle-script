@@ -1,0 +1,28 @@
+[Unit]
+Description=Kadena Oracle Price Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=oracle
+Group=oracle
+WorkingDirectory=/opt/kadena-oracle-daemon
+ExecStart=/usr/bin/node app.js
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=oracle-daemon
+
+# Environment
+Environment=NODE_ENV=production
+EnvironmentFile=/opt/kadena-oracle-daemon/.env
+
+# Security
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/kadena-oracle-daemon
+
+[Install]
+WantedBy=multi-user.target

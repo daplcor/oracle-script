@@ -1,0 +1,24 @@
+{
+  "name": "kadena-oracle-daemon",
+  "version": "1.0.0",
+  "description": "Lightweight Oracle Daemon for Kadena blockchain",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": ["oracle", "kadena", "blockchain", "pact"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@kadena/client": "^1.17.1",
+    "@kadena/cryptography-utils": "^0.4.4",
+    "axios": "^1.9.0",
+    "dotenv": "^16.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
