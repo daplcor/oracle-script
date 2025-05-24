@@ -1,10 +1,49 @@
+# docker-compose.yml
 version: '3.8'
+
 services:
   oracle:
-    build: .
+    image: daplco/kadena-oracle:latest
     restart: unless-stopped
-    env_file: .env
-    volumes:
-      - ./logs:/app/logs
     environment:
-      - NODE_ENV=production
+      # Required Variables
+      - REPORTER_ID=${REPORTER_ID}
+      - SYMBOL=${SYMBOL:-KDA/USD}
+      - PUBLIC_KEY=${PACT_PUBLIC_KEY}
+      - PRIVATE_KEY=${PACT_PRIVATE_KEY}
+
+      # Kadena Config
+      - KADENA_NETWORK_ID=${KADENA_NETWORK_ID:-mainnet01}
+      - KADENA_API_HOST=${KADENA_API_HOST:-api.chainweb.com}
+      - KADENA_CHAIN_ID=${KADENA_CHAIN_ID:-2}
+      - CHAIN_IDS=${CHAIN_IDS:-2}
+      - CONTRACT_NAME=${CONTRACT_NAME:-n_f9b22d2046c2a52575cc94f961c8b9a095e349e7.oracle}
+
+      # Transaction Config
+      - GAS_LIMIT=${GAS_LIMIT:-5000}
+      - GAS_PRICE=${GAS_PRICE:-0.0000001}
+      - TTL=${TTL:-7200}
+
+      # Price API Configuration
+      - API_TIMEOUT=${API_TIMEOUT:-30000}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      - PRICE_DEVIATION_THRESHOLD=${PRICE_DEVIATION_THRESHOLD:-0.05}
+
+      # Optional: Price APIs
+      - COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}
+      - COINCAP_API_KEY=${COINCAP_API_KEY}
+      # Optional: Telegram
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+
+    volumes:
+      - oracle-logs:/app/logs
+
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  oracle-logs:

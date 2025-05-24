@@ -49,7 +49,6 @@ class OracleDaemon {
 
   console.log(`Next report time: ${nextReportTime}`);
 
-  // Handle EPOCH time (means reporter can report immediately)
   const isEpochTime = nextReportTime === '1970-01-01T00:00:00Z';
   const currentTime = new Date();
 
