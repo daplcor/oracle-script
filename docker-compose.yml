@@ -1,10 +1,8 @@
-# docker-compose.yml
-version: '3.8'
-
 services:
   oracle:
     image: daplco/kadena-oracle:latest
     restart: unless-stopped
+    env_file: .env
     environment:
       # Required Variables
       - REPORTER_ID=${REPORTER_ID}

@@ -1,3 +1,24 @@
+# Docker Usage
+
+**Download deployment files - compose method:**
+   ```bash
+   wget https://raw.githubusercontent.com/daplco/oracle-script/main/docker-compose.yml
+   wget https://raw.githubusercontent.com/daplco/oracle-script/main/.env.example
+   wget https://raw.githubusercontent.com/daplco/oracle-script/main/deploy.sh
+   chmod +x deploy.sh
+   ```
+
+Configure environment variables
+
+cp .env.example .env
+# Edit .env with your settings
+nano .env
+
+# Deploy
+./deploy.sh
+
+## If you want to build from the repo see below
+
 # Build
 docker build -t kadena-oracle .
 
